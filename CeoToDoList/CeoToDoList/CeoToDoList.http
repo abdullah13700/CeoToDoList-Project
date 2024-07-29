@@ -1,0 +1,6 @@
+@CeoToDoList_HostAddress = http://localhost:5048
+
+GET {{CeoToDoList_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
