@@ -7,6 +7,6 @@
         public string? Description { get; set; }
 
         // Navigation property
-        public ICollection<CeoTask>? Tasks { get; set; } = new List<CeoTask>();
+        public ICollection<CeoTask> Tasks { get; set; } = new List<CeoTask>();
     }
 }

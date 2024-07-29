@@ -41,14 +41,21 @@ namespace CeoToDoList.Repositories
 
         public async Task<CeoList> DeleteAsync(Guid id)
         {
-            var result = await dbContext.Lists.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await dbContext.Lists.Include(list=>list.Tasks).FirstOrDefaultAsync(x => x.Id == id);
+            
             if (result == null)
             {
-                return null;
+                throw new InvalidOperationException("There is no List with this Id");
             }
-            dbContext.Lists.Remove(result);
-            dbContext.SaveChanges();
-            return result;
+
+            var isAllTaskCompleted = result.Tasks.All(x => x.Completed);
+            if (result.Tasks.IsNullOrEmpty() ||  isAllTaskCompleted)
+            {
+                dbContext.Lists.Remove(result);
+                dbContext.SaveChanges();
+                return result;
+            }
+            throw new InvalidOperationException("This list is not completed");
         }
 
         public async Task<CeoList> GetByIdAsync(Guid id)

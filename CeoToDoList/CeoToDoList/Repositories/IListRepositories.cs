@@ -9,6 +9,6 @@ namespace CeoToDoList.Repositories
 
         Task<CeoList> CreateAsync(CeoList ceoList);
 
-        Task<CeoList?> DeleteAsync(Guid id);
+        Task<CeoList> DeleteAsync(Guid id);
     }
 }
