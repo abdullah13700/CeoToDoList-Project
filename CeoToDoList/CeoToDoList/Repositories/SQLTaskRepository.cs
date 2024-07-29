@@ -75,9 +75,13 @@ namespace CeoToDoList.Repositories
 
         public async Task<CeoTask> UpdateCompletedAsync(Guid id, CeoTask ceoTask)
         {
-            var alltasks = await dbContext.Tasks.ToListAsync();
             var oldTask = await dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == id);
 
+            if (oldTask.Completed == ceoTask.Completed) 
+            {
+                throw new InvalidOperationException("The task is already the same value you enterd");
+
+            }
             if (oldTask == null)
             {
                 throw new InvalidOperationException("There is no List with this Id to update completed");
