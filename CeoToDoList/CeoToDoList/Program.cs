@@ -12,15 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(
-                options =>
-                {
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "CEO List API", Version = "v1" });
-                    options.DocInclusionPredicate((docName, description) => true);
-
-                    var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly).ToList();
-                    xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
-                });
+builder.Services.AddSwaggerGen();
 
 // Connecting to the database
 builder.Services.AddDbContext<CeoDbContext>(options =>
